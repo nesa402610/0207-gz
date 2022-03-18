@@ -3,3 +3,8 @@ html {
     color: white;
     font-family: "Fira Code", sans-serif;
 }
+a {
+    color: #fccccc;
+    text-decoration: none;
+
+}
