@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang=ru>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Светофор</title>
+    <style>
+        /*Делает флекс бокс, чтобы .box был по размеру кружков*/
+        body {
+            display: flex;
+        }
+        /*Делаем флексбоксом, чтобы было удобно отсутупы делать, задаем черный фон и направление в колонку для флекса
+         Внутренние отступы по 1рем, как и отступы между элементами
+         */
+        .box {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+            background-color: black ;
+            padding: 1rem;
+        }
+        /*Задаем цвет, высоту и ширину, скругляем, чтобы это были кружки*/
+        .red {
+            background-color: red;
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+        }
+        .yellow {
+            background-color: yellow;
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+        }
+        .green {
+            background-color: green;
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="red"></div>
+        <div class="yellow"></div>
+        <div class="green"></div>
+    </div>
+</body>
+</html>
