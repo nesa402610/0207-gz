@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="id1">
+<input type="text" id="id2">
+
+<button onclick="calc(inp1.value, inp2.value, '+')">Сложить</button>
+<button onclick="calc(inp1.value, inp2.value, '*')">Умножить</button>
+<button onclick="calc(inp1.value, inp2.value, '-')">Вычитание</button>
+<button onclick="calc(inp1.value, inp2.value, '/')">Деление</button>
+
+<script>
+    let inp1 = document.getElementById('id1');
+    let inp2 = document.getElementById('id2');
+    const calc = (a,b,c) => {
+        if (c === '+') return console.log("Сложение: " + (+a + +b))
+        if (c === '-') return console.log("Вычитание: " + (+a - +b))
+        if (c === '*') return console.log("Умножение: " + (a * b))
+        if (c === '/') return console.log("Деление: " + (a / b))
+    };
+</script>
+</body>
+</html>

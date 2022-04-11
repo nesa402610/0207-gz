@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Вторая часть</title>
+    <style>
+        .wrapper {
+            width: 1200px;
+            margin: auto;
+        }
+
+        .block {
+            display: inline-block;
+            width: 300px;
+        }
+
+        .invisible {
+            display: none;
+        }
+
+        @media (max-width: 991px) {
+            .wrapper {
+                width: 100%;
+            }
+
+            .block {
+                display: block;
+                width: 100%;
+                font-size: 1.2rem;
+            }
+
+            img {
+                width: 75%;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .invisible {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div class="block">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aspernatur aut distinctio expedita
+        laboriosam maxime nulla odio optio ut vel? Beatae eum eveniet ipsa magni porro sint, ullam unde velit.
+    </div>
+    <div class="block">
+        <img src="images/149071.png" alt="">
+    </div>
+    <div class="invisible">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deserunt doloremque enim esse ex ipsa magni nobis
+        numquam quisquam unde? Aspernatur consequuntur distinctio ipsam magnam provident quo, quod quos repudiandae.
+        Sit.
+    </div>
+</div>
+</body>
+</html>

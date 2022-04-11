@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<!-- https://0207.napli.ru/index.html -->
+<html lang="ru">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<!-- вставил шрифт  начало -->
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link
+		href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap" 
+		rel="stylesheet"> -->
+		<!-- вставил шрифт конец -->
+		
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+			integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+			crossorigin="anonymous"
+		/>]
+		<!-- подключение через фаил css начало -->
+		<link rel="stylesheet" href="style.css">
+		<!-- подключение через фаил css конец -->
+		<script src="https://kit.fontawesome.com/cc3350a9c5.js" crossorigin="anonymous"></script>
+			
+		<title>Моя страница</title>
+        <style>
+
+			*,
+			html,
+			body {
+				font-family: 'Roboto', sans-serif;
+			}
+			.container {
+				margin-top: 100px;
+			}
+			.col-2 {
+				background-color: #2b86c9;
+				height: 200px;
+				width: 200px; 
+				margin-left: 120px;  
+			}
+			
+			.image-container {
+				background-image: url(./img/mlechnii_put.jpg);
+				background-size: cover;
+				background-repeat: no-repeat;
+				background-position: center;
+				margin-top: 100px;
+				height: 800px;
+			}
+			.text {
+				text-align: center;
+				color: white;
+				font-size: 24px;
+				margin-top: 350px;
+				box-shadow: inset 2px 5px 5px rgba(20, 194, 20, 0.616), 1px 1px 5px rgba(255, 255, 255, 1);
+			}
+
+
+			/* .fa-solid {
+				background: -webkit-gradient(linear, left top, left bottom, from(#f00), to(#333));
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			} */
+			.box {
+				height: 300px;
+				background-color: blueviolet;
+			}
+			.news {
+				background-image: url(./img/1.jpg);
+				background-size: cover;
+				height: 20rem;
+				background-position: center;
+			}
+			.news-box {
+				margin: auto;
+				max-width: 15rem;
+				height: auto;
+				border: 1px solid blueviolet;
+				padding: 0.5rem;
+				border-radius: 5px;
+				background-color: rgba(255, 140 , 0, 0.55);
+				box-shadow: 0 0 10px 10px rgba(255, 160 , 40, 0.45);
+			}
+
+			.form-controle {
+            width: 250px;
+            height: 100px;
+        	}
+			.row-down {
+            margin-top: 35px;
+            margin-left: 75px;
+        	}
+			
+			/* .fa-vk {
+            background: -webkit-gradient(linear, left top, left bottom, from(rgb(0, 255, 34)), to(rgb(250, 248, 248)));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        	}
+        	.fa-telegram {
+            background: -webkit-gradient(linear, left top, right bottom, from(rgb(255, 176, 5)), to(rgb(252, 252, 252)));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        	}
+        	.fa-whatsapp {
+            background: -webkit-gradient(linear, left top, right bottom, from(rgb(13, 255, 5)), to(rgb(42, 163, 42)));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        	}
+        	.fa-instagram {
+            background: -webkit-gradient(linear, left top, right bottom, from(rgb(255, 238, 5)), to(rgb(88, 146, 212)));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        	}
+        	.fa-facebook{
+            background: -webkit-gradient(linear, left top, right bottom, from(rgb(59, 5, 255)), to(rgb(238, 134, 134)));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        	} */
+		</style>
+
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2b86c9">
+			<a class="navbar-brand" href="index.html">Моя домашняя страница</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Переключатель навигации"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="index.html">Главная <span class="sr-only">(текущая)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="traffic_light.html">Светофор</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="bootstrap.html">Bootstrap</a>
+					</li>
+				</ul>
+				<form class="form-inline my-2 my-lg-0">
+					<input
+						class="form-control mr-sm-2"
+						type="search"
+						placeholder="Поиск"
+						aria-label="Поиск"
+					/>
+					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+				</form>
+			</div>
+		</nav>
+
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img src="./img/slider-006.jpg" class="d-block w-100" alt="ОКЕАН" />
+				</div>
+				<div class="carousel-item">
+					<img src="./img/slider-005.jpg" class="d-block w-100" alt="Природа" />
+				</div>
+				<div class="carousel-item">
+					<img src="./img/slider-007.webp" class="d-block w-100" alt="Море" />
+				</div>
+			</div>
+			<a
+				class="carousel-control-prev"
+				href="#carouselExampleControls"
+				role="button"
+				data-slide="prev"
+			>
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Предыдущий</span>
+			</a>
+			<a
+				class="carousel-control-next"
+				href="#carouselExampleControls"
+				role="button"
+				data-slide="next"
+			>
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Следующий</span>
+			</a>
+		</div>
+		<div class="container my-5">
+			<div class="row">
+				<div class="col-md-4 p-5">
+					<div class="card text-center border-primary py-5 bg-warning">
+						<a href="traffic_light.html"><i class="fa-solid fa-traffic-light fa-10x"></i></a>
+					</div>
+				</div>
+				<div class="col-md-4 p-5">
+					<div class="card text-center border-primary py-5 bg-warning">
+						<i class="fa-solid fa-robot fa-10x"></i>
+					</div>
+				</div>
+				<div class="col-md-4 p-5">
+					<div class="card text-center border-primary py-5 bg-warning">
+						<i class="fa-solid fa-mug-saucer fa-10x"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-4 p-4 border"><div class="box"></div></div>
+				<div class="col-md-4 p-4 border"><div class="box"></div></div>
+				<div class="col-md-4 p-4 border"><div class="box"></div></div>
+			</div>
+		</div>
+
+        <div class="container">
+			<div class="row">
+				<div class="col-2"></div>
+				<div class="col-1"></div>
+				<div class="col-2"></div>
+				<div class="col-1"></div>
+				<div class="col-2"></div>
+			</div>
+		</div>
+	
+		<div class="image-container">
+			<div class="row">
+				<div class="col-3"></div>
+				<div class="col-6">
+					<div class="text"> Млечный путь Млечный путь   Млечный путь Млечный путь Млечный путь Млечный путь Млечный путь Млечный путь Млечный путь Млечный путь .</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- News block start -->
+		<div class="container-fluid mt-5 d-flex news">
+			<div class="news-box">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit. Placeat impedit asperiores ipsam
+				odit numquam laudantium, nisi sunt neque perspiciatis rem similique id vel obcaecati
+				assumenda excepturi voluptatem, commodi nemo quod?
+			</div>
+		</div>
+		<!-- News block end -->
+		<!-- Contact block start -->
+		<div class="container">
+			<h2 class="text-center">Связаться с нами</h2>
+			<div class="row">
+				<div class="col-md-5">
+					<h3>Контакты</h3>
+					<h5>Адрес:</h5>
+					<p>Россия, Москва, поселение Мосрентген, Калужское шоссе, 21-й километр, 3Асоор4</p>
+					<h5>Телефон:</h5>
+					<a href="tel:+74952605289">+7 (495) 260-52-89</a>
+					<h5>E-mail:</h5>
+					<a href="mailto:hotline@eduprof.ru">hotline@eduprof.ru</a>
+					<h5>График работы:</h5>
+					<p>
+						Понедельник - четверг: с 8-30 по 17-15, пятница: с 8-30 по 16-00; обучение по графику в
+						субботу
+					</p>
+				</div>
+				<div class="col-md-7 pt-2">
+					<form action="">
+						<div class="form-group">
+							<input type="text" class="form-control" placeholder="Имя" />
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control" placeholder="E-mail" />
+						</div>
+						<div class="form-group">
+							<textarea class="form-control" placeholder="Сообщение"></textarea>
+						</div>
+						<div class="form-group">
+							<input type="submit" class="btn btn-danger"/>
+						</div>
+					
+					</form>
+					<!-- иконки начало -->
+					<div class="row row-down">
+						<div class="col-1">                
+							<i class="fa-brands fa-vk fa-2x"></i>
+						</div>
+						<div class="col-1">
+							<i class="fa-brands fa-telegram fa-2x"></i>
+						</div>
+						<div class="col-1">
+							<i class="fa-brands fa-whatsapp fa-2x"></i>
+						</div>
+						<div class="col-1">
+							<i class="fa-brands fa-instagram fa-2x"></i>
+						</div>
+						<div class="col-1">
+							<i class="fa-brands fa-facebook fa-2x"></i>
+						</div>
+					</div>
+					<!-- иконки конец -->
+				</div>
+			</div>
+		</div>
+		<!-- Contact block end -->
+		<!-- Map block start -->
+		<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A87242afd6364153483c3bb69c9953e908dad46a4349b6c3e3604601269e864e4&amp;width=100%25&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+		<!-- Map block end -->
+		<footer>
+			<div class="container py-5 text-center">© <script>document.write(new Date().getFullYear())</script> Все права защищены</div>
+		</footer>
+
+
+		
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+			integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>

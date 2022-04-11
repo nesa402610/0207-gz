@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        button {
+            color: red;
+            font-size: 1.5rem;
+            font-size: clamp(1.5rem, calc(1rem + 3vw), 3rem);
+        }
+        .ppp {
+            color: blue;
+        }
+        #pp {
+            /*color: red;*/
+        }
+        p {
+            color: black;
+        }
+        .red {
+            color: red;
+        }
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+<button>Привет, Я кнопка с сними текстом</button>
+<p id="pp" class="ppp">Супер параграф</p>
+
+<div class="red blue">Супер тест</div>
+<div class="blue red">Текст</div>
+</body>
+</html>
