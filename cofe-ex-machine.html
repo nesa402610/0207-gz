@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+          integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+          crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Кофе хочешь?</title>
+    <style>
+        body {
+            background-image: url("https://proprikol.ru/wp-content/uploads/2020/08/kartinki-kofe-38.jpg");
+            background-size: cover;
+            background-color: rgba(38, 38, 38, 0.47);
+        }
+
+        .round-cir {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            vertical-align: middle;
+        }
+
+        .coffee_txt {
+            align-items: center;
+        }
+
+        .pot {
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            padding: 1rem 2rem;
+            background-color: rgba(65, 65, 65, 0.85);
+        }
+
+        .gap {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .coffee_txt > span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-left: 1rem;
+        }
+
+        .money[data-money='5'], .money[data-money='2'], .money[data-money='1'] {
+            background: silver;
+            border-radius: 50%;
+            width: 100px;
+        }
+
+        .money[data-money='10'] {
+            background-color: #c8ad00;
+            border-radius: 50%;
+            width: 100px;
+        }
+
+        .money[data-money='50'] {
+            background-color: #00c1c8;
+        }
+
+        .money[data-money='100'] {
+            background-color: #b84e4e;
+        }
+
+        .money[data-money='500'] {
+            background-color: #b8734e;
+        }
+
+        .money[data-money='1000'] {
+            background-color: #4eb86c;
+        }
+
+        .money {
+            width: 200px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: solid 2px black;
+        }
+
+        .orders {
+            height: 200px;
+            overflow: scroll;
+            background-color: rgba(65, 65, 65, 0.85);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row mx-0">
+        <div class="col-md-6 pot text-white">
+            <div onclick="getCoffee(55, 'Латте')" class="row coffee_txt">
+                <div class="btn btn-success round-cir">
+                </div>
+                <span>Латте - 55 рублей</span>
+            </div>
+            <div onclick="getCoffee(100, 'Мокко')" class="row coffee_txt">
+                <div class="btn btn-success round-cir">
+                </div>
+                <span>Мокко - 100 рублелй</span>
+            </div>
+            <div onclick="getCoffee(130, 'Американо')" class="row coffee_txt">
+                <div class="btn btn-success round-cir">
+                </div>
+                <span>Американо - 130 рублелй</span>
+            </div>
+            <div onclick="getCoffee(200, 'Эспрессо')" class="row coffee_txt">
+                <div class="btn btn-success round-cir">
+                </div>
+                <span>Эспрессо - 200 рублелй</span>
+            </div>
+            <div onclick="getCoffee(70, 'Чай')" class="row coffee_txt">
+                <div class="btn btn-success round-cir">
+                </div>
+                <span>Чай - 70 рублелй</span>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex flex-column">
+            <div class="row mx-0">
+                <div class="col-md-6 bg-success rounded-sm p-3 text-center text-white">
+                    <div class="" id="display" style="height: 100px">
+                        Внесите деньги
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex">
+                    <button class="btn btn-primary flex-grow-1" onclick="getChange()">Забрать сдачу</button>
+                </div>
+            </div>
+            <!--            <button class="btn btn-danger" onclick="getCoffee()">Получить кофе</button>-->
+            <div class="row mx-0 mt-2">
+
+                <input id="money_input" class="input mr-2 d-none" disabled type="number" placeholder="Сюда деньги">
+            </div>
+            <div class=" text-white px-2 orders flex-grow-1 mt-2">
+                <ol reversed id="orders">
+
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row gap text-white" id="money">
+        <div class="money" id="rub1000" data-money="1000" onclick="addMoney(event)">
+            1000 рублей
+        </div>
+        <div class="money" id="rub500" data-money="500" onclick="addMoney(event)">
+            500 рублей
+        </div>
+        <div class="money" id="rub100" data-money="100" onclick="addMoney(event)">
+            100 рублей
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    let money = document.getElementById('money_input');
+    money.value = 0;
+    let display = document.getElementById('display');
+
+    const getChange = () => {
+        if (money.value > 0) {
+            while (money.value != 0) {
+                if (money.value >= 1000) {
+                    document.getElementById('money').insertAdjacentHTML("afterbegin",
+                        `<div class="money" id="rub1000" data-money="1000" onclick="addMoney(event)">1000 рублей</div>`);
+                    money.value -= 1000;
+                    display.innerHTML = money.value + " рублей";
+                } else if (money.value >= 500) {
+                    document.getElementById('money').insertAdjacentHTML("afterbegin",
+                        `<div class="money" id="rub500" data-money="500" onclick="addMoney(event)">500 рублей</div>`);
+                    money.value -= 500;
+                    display.innerHTML = money.value + " рублей";
+                } else if (money.value >= 100) {
+                    document.getElementById('money').insertAdjacentHTML("afterbegin",
+                        `<div class="money" id="rub100" data-money="100" onclick="addMoney(event)">100 рублей</div>`);
+                    money.value -= 100;
+                    display.innerHTML = money.value + " рублей";
+                } else if (money.value >= 50) {
+                    document.getElementById('money').insertAdjacentHTML("afterbegin",
+                        `<div class="money" id="rub50" data-money="50" onclick="addMoney(event)">50 рублей</div>`);
+                    money.value -= 50;
+                    display.innerHTML = money.value + " рублей";
+                } else if (money.value >= 10) {
+                    document.getElementById('money').insertAdjacentHTML("afterbegin",
+                        `<div class="money" id="rub10" data-money="10" onclick="addMoney(event)">10 рублей</div>`);
+                    money.value -= 10;
+                    display.innerHTML = money.value + " рублей";
+                } else if (money.value >= 5) {
+                    document.getElementById('money').insertAdjacentHTML("afterbegin",
+                        `<div class="money" id="rub5" data-money="5" onclick="addMoney(event)">5 рублей</div>`);
+                    money.value -= 5;
+                    display.innerHTML = money.value + " рублей";
+                } else if (money.value >= 2) {
+                    document.getElementById('money').insertAdjacentHTML("afterbegin",
+                        `<div class="money" id="rub2" data-money="2" onclick="addMoney(event)">2 рубля</div>`);
+                    money.value -= 2;
+                    display.innerHTML = money.value + " рублей";
+                } else if (money.value >= 1) {
+                    document.getElementById('money').insertAdjacentHTML("afterbegin",
+                        `<div class="money" id="rub1" data-money="1" onclick="addMoney(event)">1 рубль</div>`);
+                    money.value -= 1;
+                    display.innerHTML = money.value + " рублей";
+                }
+            }
+            document.getElementById('orders').insertAdjacentHTML('afterbegin', "<li>Сдача выдана</li>");
+            display.innerHTML = 'Внесите деньги'
+        } else {
+            document.getElementById('orders').insertAdjacentHTML("afterbegin", `<li style="color: orange"> Чтобы получить сдачу нужно пополнить счет</li>`);
+        }
+    };
+
+    const addMoney = (e) => {
+        money.value = +money.value + +e.target.getAttribute('data-money');
+        display.innerHTML = money.value + " рублей";
+        e.target.remove();
+
+    };
+    const getCoffee = (price, name) => {
+        if (money.value >= price) {
+            console.log(`${name} готов!`);
+            money.value -= price;
+            display.innerHTML = money.value + " рублей";
+            const b = document.getElementById('orders');
+            b.insertAdjacentHTML("afterbegin", `<li> ${name} - ${price} рублей</li>`);
+        } else {
+            document.getElementById('orders').insertAdjacentHTML("afterbegin", `<li style="color: red"> Недостаточно денег</li>`);
+        }
+    };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"></script>
+</html>
