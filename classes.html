@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet"
+          href="../../Library/Application Support/JetBrains/PhpStorm2021.3/javascript/extLibs/http_cdn.jsdelivr.net_npm_bootstrap@5.1.3_dist_css_bootstrap.css">
+</head>
+<body>
+<div id="cat1" style="font-size: 2rem;">
+    <h1>cat 1</h1>
+
+</div>
+<button onclick="barsik.feed()">Покормить кота</button>
+<div id="cat2" style="font-size: 2rem;">
+    <h1>cat2</h1>
+
+</div>
+<button>Покормить</button>
+<script>
+    const newCat = (name, age) => {
+        return {
+            nickname: name,
+            age: age,
+            satiety: 100,
+            hp: 100,
+            feed: () => {
+                this.satiety -= 1;
+            }
+        };
+    };
+    const a = newCat('asd', 2);
+
+    const cat1 = document.getElementById('cat1')
+    const cat2 = document.getElementById('cat2')
+    class Cat {
+        constructor(nickname, age, block) {
+            this.nickname = nickname;
+            this.age = age;
+            this.satiety = 100;
+            this.hp = 100;
+            this.block = block
+            setInterval(this.getHungry.bind(this), 2000);
+            this.statusRender()
+        }
+
+        sayMeow() {
+            console.log('Meow!');
+        }
+        statusRender() {
+            this.block.innerHTML = `Имя: ${this.nickname}, возраст: ${this.age}, голод: ${this.satiety}, здоровье: ${this.hp}`
+
+        }
+        getHungry() {
+            this.satiety <= 0 ? this.hp -= 1 : this.satiety -= 1;
+            this.statusRender()
+
+        }
+
+        feed() {
+            this.satiety += 1;
+            this.statusRender()
+
+        }
+    }
+
+    let barsik = new Cat('Барсик', 3, cat1);
+    let murzik = new Cat('Мурзик', 1, cat2);
+
+</script>
+</body>
+</html>
