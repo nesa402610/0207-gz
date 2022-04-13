@@ -112,11 +112,15 @@
     const plusAudio = () => {
         if (file) {
             audio.currentTime += 15;
+            timeline.value = Math.floor(audio.currentTime / audio.duration * 100);
+            document.querySelector('#time > div:nth-child(1)').innerHTML = `${Math.floor(audio.currentTime / 60)}:${Math.floor(audio.currentTime % 60)}`;
         }
     };
     const minusAudio = () => {
         if (file) {
             audio.currentTime -= 15;
+            timeline.value = Math.floor(audio.currentTime / audio.duration * 100);
+            document.querySelector('#time > div:nth-child(1)').innerHTML = `${Math.floor(audio.currentTime / 60)}:${Math.floor(audio.currentTime % 60)}`;
         }
     };
 </script>
