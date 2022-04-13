@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DOM usage</title>
+</head>
+<body>
+<img src="./images/card_.png" alt="">
+</body>
+
+<script>
+
+    document.querySelector('img').style.position = 'absolute';
+    let step = 0;
+    let flag = true;
+    setInterval(() => {
+        if (window.innerWidth - 1000 > step && flag) {
+            step += 10;
+            // flag = step == 250 ? false : true;
+            document.querySelector('img').style.transform = 'scaleX(1)'
+
+
+        } else {
+            document.querySelector('img').style.transform = 'scaleX(-1)'
+
+            flag = step == 0 ? true : false;
+            step -= 10;
+        }
+        if (Math.round(window.innerWidth / 2) == step + 500) console.log(1);
+        document.querySelector('img').style.left = step + 'px';
+    }, 50);
+</script>
+</html>
