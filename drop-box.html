@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="http_cdn.jsdelivr.net_npm_bootstrap@5.1.3_dist_css_bootstrap.css">
+</head>
+<body>
+<div class="d-flex flex-column">
+    <img src="./images/Image.png" class="position-absolute" id="dron" alt="" width="250">
+    <img src="./images/crate-ge99502873_640.png"
+         style="top: 150px"
+         hidden
+         class="position-absolute"
+         id="box"
+         alt=""
+         width="250">
+</div>
+<script>
+    const dron = document.getElementById('dron');
+    const box = document.getElementById('box');
+    let dronpos = 0;
+    let boxposX = 0;
+    let boxposY = 150;
+    let flag = true;
+
+    const moveDron = () => {
+        if (window.innerWidth - 250 > dronpos && flag) {
+            dronpos += 1;
+            dron.style.transform = 'scaleX(1)';
+        } else {
+            dronpos -= 1;
+            flag = dronpos === 0;
+        }
+
+        dron.style.left = dronpos + 'px';
+    };
+    const dropBox = () => {
+        if (window.innerWidth / 2 - 125 > boxposX) {
+            boxposX += 1;
+        } else if (window.innerHeight - 200 > boxposY) {
+            boxposY += 1;
+        } else if (window.innerHeight - 200 < boxposY) {
+            boxposY -= 1;
+        }
+        if (Math.round(window.innerWidth / 2) === dronpos + 125) {
+            box.removeAttribute('hidden');
+        }
+        box.style.left = boxposX + 'px';
+        box.style.top = boxposY + 'px';
+
+    };
+    setInterval(() => {
+        moveDron();
+        dropBox();
+    }, 10);
+</script>
+</body>
+</html>
