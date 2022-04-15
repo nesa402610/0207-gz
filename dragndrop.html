@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Задание на кубики</title>
+    <link rel="stylesheet" href="http_cdn.jsdelivr.net_npm_bootstrap@5.1.3_dist_css_bootstrap.css">
+    <style>
+        .cube {
+            width: 100px;
+            height: 100px;
+            display: flex;
+        }
+        .big-cube {
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+        }
+    </style>
+</head>
+<body class="bg-dark">
+<div class="container p-4">
+    <div class="row">
+        <div class="d-flex col-3 flex-column" style="gap: 1rem">
+            <div class="cube" data-color="red">
+
+            </div>
+            <div class="cube" data-color="green">
+
+            </div>
+            <div class="cube" data-color="blue">
+
+            </div>
+        </div>
+        <div class="colored d-flex col-auto align-items-center">
+            <div class="big-cube"></div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    const cubes = document.querySelectorAll('.cube')
+    const big_cube = document.querySelector('.big-cube')
+
+    cubes.forEach(cube => {
+        cube.style.backgroundColor = cube.dataset.color
+        cube.onmousedown = (e) => {
+            cube = e.currentTarget;
+            cube.style.position = 'absolute';
+            document.addEventListener('mousemove', moveAt);
+        };
+        cube.onmouseup = () => {
+            document.removeEventListener('mousemove', moveAt);
+
+            let cube_top = cube.getBoundingClientRect().top;
+            let cube_left = cube.getBoundingClientRect().left;
+            let cube_right = cube.getBoundingClientRect().right;
+            let cube_bottom = cube.getBoundingClientRect().bottom;
+
+            let big_cube_top = big_cube.getBoundingClientRect().top;
+            let big_cube_left = big_cube.getBoundingClientRect().left;
+            let big_cube_right = big_cube.getBoundingClientRect().right;
+            let big_cube_bottom = big_cube.getBoundingClientRect().bottom;
+
+            if (cube_top > big_cube_top
+                && cube_left > big_cube_left
+                && cube_right < big_cube_right
+                && cube_bottom < big_cube_bottom) {
+                cube.hidden = true;
+                big_cube.style.backgroundColor = cube.dataset.color
+
+            }
+
+        }
+        const moveAt = (e) => {
+            let x = e.clientX - 50;
+            let y = e.clientY - 50;
+            cube.style.top = y + 'px';
+            cube.style.left = x + 'px';
+        };
+    })
+</script>
+</html>
