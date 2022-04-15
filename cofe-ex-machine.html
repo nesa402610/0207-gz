@@ -48,41 +48,14 @@
             margin-left: 1rem;
         }
 
-        .money[data-money='5'], .money[data-money='2'], .money[data-money='1'] {
-            background: silver;
-            border-radius: 50%;
-            width: 100px;
+        #money img {
+            height: 150px;
         }
 
-        .money[data-money='10'] {
-            background-color: #c8ad00;
-            border-radius: 50%;
-            width: 100px;
-        }
+        #money img:hover {
+            cursor: pointer;
+            filter: contrast(150%);
 
-        .money[data-money='50'] {
-            background-color: #00c1c8;
-        }
-
-        .money[data-money='100'] {
-            background-color: #b84e4e;
-        }
-
-        .money[data-money='500'] {
-            background-color: #b8734e;
-        }
-
-        .money[data-money='1000'] {
-            background-color: #4eb86c;
-        }
-
-        .money {
-            width: 200px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: solid 2px black;
         }
 
         .orders {
@@ -108,10 +81,10 @@
                 </div>
                 <span>Мокко - 100 рублелй</span>
             </div>
-            <div onclick="getCoffee(130, 'Американо')" class="row coffee_txt">
+            <div onclick="getCoffee(131, 'Американо')" class="row coffee_txt">
                 <div class="btn btn-success round-cir">
                 </div>
-                <span>Американо - 130 рублелй</span>
+                <span>Американо - 131 рублелй</span>
             </div>
             <div onclick="getCoffee(200, 'Эспрессо')" class="row coffee_txt">
                 <div class="btn btn-success round-cir">
@@ -137,8 +110,10 @@
             </div>
             <!--            <button class="btn btn-danger" onclick="getCoffee()">Получить кофе</button>-->
             <div class="row mx-0 mt-2">
-
-                <input id="money_input" class="input mr-2 d-none" disabled type="number" placeholder="Сюда деньги">
+                <label>
+                    <img src="images/money/bill-acc.png" alt="">
+                    <input id="money_input" class="input mr-2" disabled type="number" placeholder="Сюда деньги">
+                </label>
             </div>
             <div class=" text-white px-2 orders flex-grow-1 mt-2">
                 <ol reversed id="orders">
@@ -147,82 +122,116 @@
             </div>
         </div>
     </div>
-    <div class="row gap text-white" id="money">
-        <div class="money" id="rub1000" data-money="1000" onclick="addMoney(event)">
-            1000 рублей
-        </div>
-        <div class="money" id="rub500" data-money="500" onclick="addMoney(event)">
-            500 рублей
-        </div>
-        <div class="money" id="rub100" data-money="100" onclick="addMoney(event)">
-            100 рублей
-        </div>
+    <div class="gap text-white" id="money">
+    <img src="./images/money/500rub.jpg" data-money="500" alt="">
+    <img src="./images/money/100rub.jpg" data-money="100" alt="">
+    <img src="./images/money/50rub.jpg" data-money="50" alt="">
     </div>
 </div>
 </body>
 <script>
+    let bills = document.querySelectorAll('img[src$="rub.jpg"]');
+    let bill_acc = document.querySelector('img[src$="bill-acc.png"]');
+
+    bills.forEach(bill => {
+        bill.onmousedown = (e) => {
+            bill = e.currentTarget;
+            bill.style.position = 'absolute';
+            bill.style.zIndex = '10000';
+            bill.style.transform = 'rotate(90deg)';
+            document.addEventListener('mousemove', moveAt);
+        };
+        bill.onmouseup = () => {
+            document.removeEventListener('mousemove', moveAt);
+            bill.style.zIndex = 1;
+            // bill.style.transform = 'rotate(0deg)';
+
+            let bill_top = bill.getBoundingClientRect().top;
+            let bill_left = bill.getBoundingClientRect().left;
+            let bill_right = bill.getBoundingClientRect().right;
+            let bill_acc_top = bill_acc.getBoundingClientRect().top;
+            let bill_acc_left = bill_acc.getBoundingClientRect().left;
+            let bill_acc_right = bill_acc.getBoundingClientRect().right;
+            let bill_acc_bottom = bill_acc.getBoundingClientRect().bottom - (bill_acc.getBoundingClientRect().height / 3) * 2;
+            if (bill_top > bill_acc_top
+                && bill_left > bill_acc_left
+                && bill_right < bill_acc_right
+                && bill_top < bill_acc_bottom) {
+                bill.hidden = true;
+                money.value = +money.value + +bill.dataset.money;
+                    display.innerHTML = money.value + " рублей";
+
+            }
+
+        };
+        bill.ondragstart = function () {
+            return false;
+        };
+        const moveAt = (e) => {
+            let x = e.clientX - 149;
+            let y = e.clientY - 62;
+            bill.style.top = y + 'px';
+            bill.style.left = x + 'px';
+        };
+    });
+
+
     let money = document.getElementById('money_input');
     money.value = 0;
     let display = document.getElementById('display');
+    // const insertMoney = (e) => {
+    //     money.value = +money.value + +e.target.getAttribute('data-money');
+    //     // e.target.remove();
+    //     display.innerHTML = money.value + " рублей";
+    // };
 
     const getChange = () => {
         if (money.value > 0) {
             while (money.value != 0) {
-                if (money.value >= 1000) {
+                if (money.value >= 500) {
                     document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<div class="money" id="rub1000" data-money="1000" onclick="addMoney(event)">1000 рублей</div>`);
-                    money.value -= 1000;
-                    display.innerHTML = money.value + " рублей";
-                } else if (money.value >= 500) {
-                    document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<div class="money" id="rub500" data-money="500" onclick="addMoney(event)">500 рублей</div>`);
+                        `<img src="./images/money/500rub.jpg" data-money="500" alt="">`);
                     money.value -= 500;
                     display.innerHTML = money.value + " рублей";
                 } else if (money.value >= 100) {
                     document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<div class="money" id="rub100" data-money="100" onclick="addMoney(event)">100 рублей</div>`);
+                        `<img src="./images/money/100rub.jpg" data-money="100" alt="">`);
                     money.value -= 100;
                     display.innerHTML = money.value + " рублей";
                 } else if (money.value >= 50) {
                     document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<div class="money" id="rub50" data-money="50" onclick="addMoney(event)">50 рублей</div>`);
+                        `<img src="./images/money/50rub.jpg" data-money="50" alt="">`);
                     money.value -= 50;
                     display.innerHTML = money.value + " рублей";
                 } else if (money.value >= 10) {
                     document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<div class="money" id="rub10" data-money="10" onclick="addMoney(event)">10 рублей</div>`);
+                        `<img src="./images/money/10rub.png" data-money="10" alt="">`);
                     money.value -= 10;
                     display.innerHTML = money.value + " рублей";
                 } else if (money.value >= 5) {
                     document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<div class="money" id="rub5" data-money="5" onclick="addMoney(event)">5 рублей</div>`);
+                        `<img src="./images/money/5rub.png" data-money="5" alt="">`);
                     money.value -= 5;
                     display.innerHTML = money.value + " рублей";
                 } else if (money.value >= 2) {
                     document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<div class="money" id="rub2" data-money="2" onclick="addMoney(event)">2 рубля</div>`);
+                        `<img src="./images/money/2rub.png" data-money="2" alt="">`);
                     money.value -= 2;
                     display.innerHTML = money.value + " рублей";
                 } else if (money.value >= 1) {
                     document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<div class="money" id="rub1" data-money="1" onclick="addMoney(event)">1 рубль</div>`);
+                        `<img src="./images/money/1rub.png" data-money="1" alt="">`);
                     money.value -= 1;
                     display.innerHTML = money.value + " рублей";
                 }
             }
             document.getElementById('orders').insertAdjacentHTML('afterbegin', "<li>Сдача выдана</li>");
-            display.innerHTML = 'Внесите деньги'
+            display.innerHTML = 'Внесите деньги';
         } else {
             document.getElementById('orders').insertAdjacentHTML("afterbegin", `<li style="color: orange"> Чтобы получить сдачу нужно пополнить счет</li>`);
         }
     };
 
-    const addMoney = (e) => {
-        money.value = +money.value + +e.target.getAttribute('data-money');
-        display.innerHTML = money.value + " рублей";
-        e.target.remove();
-
-    };
     const getCoffee = (price, name) => {
         if (money.value >= price) {
             console.log(`${name} готов!`);
