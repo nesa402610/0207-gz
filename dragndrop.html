@@ -68,8 +68,8 @@
                 && cube_left > big_cube_left
                 && cube_right < big_cube_right
                 && cube_bottom < big_cube_bottom) {
-                cube.hidden = true;
                 big_cube.style.backgroundColor = cube.dataset.color
+                cube.remove()
 
             }
 

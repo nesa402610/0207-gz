@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Speech Web Api</title>
+    <link rel="stylesheet" href="../http_cdn.jsdelivr.net_npm_bootstrap@5.1.3_dist_css_bootstrap.css">
+</head>
+<body class="bg-dark p-4 text-white">
+<div class="container">
+    <h1 class="text-center mb-4">Карточки</h1>
+    <div class="d-flex flex-wrap gap-4 justify-content-center" id="card_row">
+        <div class="card bg-primary" style="width: 18rem;">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Добавить свою карточку</h5>
+                <div class="input-group-sm">
+                    <input type="text" class="form-control" id="create_title" placeholder="Название">
+                </div>
+                <div class="input-group input-group-sm mb-3">
+                    <input type="file" class="form-control" id="create_img">
+                </div>
+                <div class="input-group mb-3">
+                    <button onclick="newItem()" class="btn btn-success">Добавить</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    const cards = [
+        {title: 'Арбуз', img: './img/watermelon.png'},
+        {title: 'Банан', img: './img/banana.png'},
+        {title: 'Виноград', img: './img/grape.png'},
+        {title: 'Глина', img: './img/clay.png'},
+    ];
+
+    const row = document.querySelector('#card_row');
+
+    cards.map((card) => {
+        row.insertAdjacentHTML('beforeend',
+            `<div class="card bg-success" onclick="speech('${card.title}')" style="width: 18rem">
+                <img src="${card.img}" class="card-img-top img-fluid" alt="${card.title}">
+                <div class="card-body">
+                    <h5 class="card-title">${card.title}</h5>
+                </div>
+            </div>`);
+    });
+    const speech = (title) => {
+        let voice = new SpeechSynthesisUtterance(title);
+        speechSynthesis.speak(voice);
+    };
+    const blob = window.blob || window.webkitURL;
+    if (!blob) {
+        console.log('Your browser does not support Blob URLs :(');
+    }
+    const newItem = () => {
+        const title = document.getElementById('create_title');
+        const img = document.getElementById('create_img');
+        if (img.files[0] && title.value) {
+            const file = blob.createObjectURL(img.files[0]);
+            cards.push({title: title.value, img: file});
+
+            row.insertAdjacentHTML('beforeend',
+                `<div class="card bg-success" onclick="speech('${title.value}')" style="width: 18rem">
+                <img src="${file}" class="card-img-top img-fluid" alt="${title.value}">
+                <div class="card-body">
+                    <h5 class="card-title">${title.value}</h5>
+                </div>
+            </div>`);
+        } else return alert("Добавить картинку и название");
+    };
+
+</script>
+</html>

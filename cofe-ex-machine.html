@@ -11,6 +11,25 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Кофе хочешь?</title>
     <style>
+        .animated {
+            animation-name: hide-bill;
+            animation-duration: 2s;
+            animation-timing-function: ease-in-out;
+
+        }
+
+        @keyframes hide-bill {
+            0% {
+                transform: rotate(90deg) rotateY(1deg);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(90deg) rotateY(40deg);
+                opacity: 0;
+
+            }
+        }
+
         body {
             background-image: url("https://proprikol.ru/wp-content/uploads/2020/08/kartinki-kofe-38.jpg");
             background-size: cover;
@@ -52,7 +71,12 @@
             height: 150px;
         }
 
-        #money img:hover {
+        img[src$='rub.png'] {
+            border-radius: 50%;
+            width: 128px;
+        }
+
+        img[src$='rub.png']:hover, img[src$='rub.jpg']:hover {
             cursor: pointer;
             filter: contrast(150%);
 
@@ -86,10 +110,10 @@
                 </div>
                 <span>Американо - 131 рублелй</span>
             </div>
-            <div onclick="getCoffee(200, 'Эспрессо')" class="row coffee_txt">
+            <div onclick="getCoffee(87, 'Эспрессо')" class="row coffee_txt">
                 <div class="btn btn-success round-cir">
                 </div>
-                <span>Эспрессо - 200 рублелй</span>
+                <span>Эспрессо - 87 рублелй</span>
             </div>
             <div onclick="getCoffee(70, 'Чай')" class="row coffee_txt">
                 <div class="btn btn-success round-cir">
@@ -99,9 +123,18 @@
         </div>
         <div class="col-md-6 d-flex flex-column">
             <div class="row mx-0">
-                <div class="col-md-6 bg-success rounded-sm p-3 text-center text-white">
+                <div class="col-md-6 bg-secondary rounded-sm p-3 text-center text-white">
                     <div class="" id="display" style="height: 100px">
-                        Внесите деньги
+                        <p id="displayInfo">Внесите деньги</p>
+                        <p id="balance">Баланс: 0 руб.</p>
+                        <div class="progress" hidden>
+                            <div class="progress-bar bg-success progress-bar-striped progress-bar-animated"
+                                 role="progressbar"
+                                 aria-valuenow="0"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100"
+                            ></div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6 d-flex">
@@ -112,10 +145,13 @@
             <div class="row mx-0 mt-2">
                 <label>
                     <img src="images/money/bill-acc.png" alt="">
-                    <input id="money_input" class="input mr-2" disabled type="number" placeholder="Сюда деньги">
+                    <input id="money_input" class="input mr-2" disabled type="hidden" placeholder="Сюда деньги">
                 </label>
+                <div id="changeBox" class="ml-4 bg-info flex-grow-1 rounded position-relative">
+
+                </div>
             </div>
-            <div class=" text-white px-2 orders flex-grow-1 mt-2">
+            <div class="text-white px-2 orders flex-grow-1 mt-2">
                 <ol reversed id="orders">
 
                 </ol>
@@ -123,9 +159,9 @@
         </div>
     </div>
     <div class="gap text-white" id="money">
-    <img src="./images/money/500rub.jpg" data-money="500" alt="">
-    <img src="./images/money/100rub.jpg" data-money="100" alt="">
-    <img src="./images/money/50rub.jpg" data-money="50" alt="">
+        <img src="./images/money/500rub.jpg" data-money="500" alt="">
+        <img src="./images/money/100rub.jpg" data-money="100" alt="">
+        <img src="./images/money/50rub.jpg" data-money="50" alt="">
     </div>
 </div>
 </body>
@@ -156,10 +192,15 @@
             if (bill_top > bill_acc_top
                 && bill_left > bill_acc_left
                 && bill_right < bill_acc_right
-                && bill_top < bill_acc_bottom) {
-                bill.hidden = true;
+                && bill_top < bill_acc_bottom && !bill.classList.contains('animated')) {
+                bill.classList.add('animated');
+                setTimeout(() => {
+
+                    bill.hidden = true;
+                }, 1900);
                 money.value = +money.value + +bill.dataset.money;
-                    display.innerHTML = money.value + " рублей";
+                // displayInfo.innerHTML = money.value + " рублей";
+                balance.innerHTML = `Баланс: ${money.value}`;
 
             }
 
@@ -186,63 +227,102 @@
     // };
 
     const getChange = () => {
+        let coin;
+        let top = getRandom(0, changeBox.getBoundingClientRect().height - 128);
+        let left = getRandom(0, changeBox.getBoundingClientRect().width - 128);
         if (money.value > 0) {
-            while (money.value != 0) {
-                if (money.value >= 500) {
-                    document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<img src="./images/money/500rub.jpg" data-money="500" alt="">`);
-                    money.value -= 500;
-                    display.innerHTML = money.value + " рублей";
-                } else if (money.value >= 100) {
-                    document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<img src="./images/money/100rub.jpg" data-money="100" alt="">`);
-                    money.value -= 100;
-                    display.innerHTML = money.value + " рублей";
-                } else if (money.value >= 50) {
-                    document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<img src="./images/money/50rub.jpg" data-money="50" alt="">`);
-                    money.value -= 50;
-                    display.innerHTML = money.value + " рублей";
-                } else if (money.value >= 10) {
-                    document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<img src="./images/money/10rub.png" data-money="10" alt="">`);
-                    money.value -= 10;
-                    display.innerHTML = money.value + " рублей";
-                } else if (money.value >= 5) {
-                    document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<img src="./images/money/5rub.png" data-money="5" alt="">`);
-                    money.value -= 5;
-                    display.innerHTML = money.value + " рублей";
-                } else if (money.value >= 2) {
-                    document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<img src="./images/money/2rub.png" data-money="2" alt="">`);
-                    money.value -= 2;
-                    display.innerHTML = money.value + " рублей";
-                } else if (money.value >= 1) {
-                    document.getElementById('money').insertAdjacentHTML("afterbegin",
-                        `<img src="./images/money/1rub.png" data-money="1" alt="">`);
-                    money.value -= 1;
-                    display.innerHTML = money.value + " рублей";
-                }
+            // if (money.value >= 500) {
+            //     coin = 500;
+            //     money.value -= 500;
+            // } else if (money.value >= 100) {
+            //     coin = 100;
+            //     money.value -= 100;
+            //     balance.innerHTML = `Баланс: ${money.value}`;
+            // } else if (money.value >= 50) {
+            //     coin = 50;
+            //     money.value -= 50;
+            //     balance.innerHTML = `Баланс: ${money.value}`;
+            // }
+            if (money.value >= 10) {
+                coin = 10;
+                money.value -= 10;
+                // balance.innerHTML = `Баланс: ${money.value}`;
+            } else if (money.value >= 5) {
+                coin = 5;
+                money.value -= 5;
+                // balance.innerHTML = `Баланс: ${money.value}`;
+            } else if (money.value >= 2) {
+                coin = 2;
+                money.value -= 2;
+                // balance.innerHTML = `Баланс: ${money.value}`;
+            } else if (money.value >= 1) {
+                coin = 1;
+                money.value -= 1;
+                // balance.innerHTML = `Баланс: ${money.value}`;
             }
-            document.getElementById('orders').insertAdjacentHTML('afterbegin', "<li>Сдача выдана</li>");
-            display.innerHTML = 'Внесите деньги';
+            if (coin > 10) {
+                changeBox.insertAdjacentHTML("afterbegin",
+                    `<img src="./images/money/${coin}rub.jpg" class="position-absolute" data-money=${coin} alt="">`);
+            } else {
+                changeBox.insertAdjacentHTML("beforeend",
+                    `<img src="./images/money/${coin}rub.png" onclick="removeTarget(event)" style="top: ${top}px; left: ${left}px;" class="position-absolute" data-money=${coin} alt="">`);
+            }
+            balance.innerHTML = `Баланс: ${money.value}`;
+            getChange();
+            // document.getElementById('orders').insertAdjacentHTML('afterbegin', "<li>Сдача выдана</li>");
+
         } else {
             document.getElementById('orders').insertAdjacentHTML("afterbegin", `<li style="color: orange"> Чтобы получить сдачу нужно пополнить счет</li>`);
         }
     };
+    const b = document.getElementById('orders');
+    let progressBar = document.querySelector(".progress-bar[role='progressbar']");
+    let inProgress = false
+    const startProgress = (coffeeName) => {
+        let i = 0;
+        progressBar.parentElement.hidden = false;
+        inProgress = true
+        const progress = () => {
+            i++;
+            progressBar.style.width = i + '%';
+            progressBar.dataset.ariaValuenow = i;
+            if (i == 120) {
+                b.insertAdjacentHTML("afterbegin", `<li> ${coffeeName} готов!</li>`);
+                clearInterval(timerID);
+                progressBar.parentElement.hidden = true;
+                progressBar.style.width = 0 + '%';
+                progressBar.dataset.ariaValuenow = 0;
+                inProgress = false
+            } else if (i === 50) {
+                b.insertAdjacentHTML("afterbegin", `<li> ${coffeeName} почти готов!</li>`);
 
+            }
+        };
+        let timerID = setInterval(progress, 50);
+
+    };
+    const getRandom = (min, max) => {
+        return Math.random() * (max - min) + min;
+    };
     const getCoffee = (price, name) => {
         if (money.value >= price) {
-            console.log(`${name} готов!`);
-            money.value -= price;
-            display.innerHTML = money.value + " рублей";
-            const b = document.getElementById('orders');
-            b.insertAdjacentHTML("afterbegin", `<li> ${name} - ${price} рублей</li>`);
+            if (inProgress) {
+                document.getElementById('orders').insertAdjacentHTML("afterbegin", `<li style="color: orange">Дождитесь текущего заказа</li>`);
+            } else {
+                money.value -= price;
+                // displayInfo.innerHTML = money.value + " рублей";
+                balance.innerHTML = `Баланс: ${money.value}`;
+                startProgress(name);
+            }
+            // console.log(`${name} готов!`);
+
         } else {
             document.getElementById('orders').insertAdjacentHTML("afterbegin", `<li style="color: red"> Недостаточно денег</li>`);
         }
     };
+    const removeTarget = (e) => {
+        e.target.remove()
+    }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
