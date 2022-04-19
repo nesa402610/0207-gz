@@ -195,7 +195,6 @@
                 && bill_top < bill_acc_bottom && !bill.classList.contains('animated')) {
                 bill.classList.add('animated');
                 setTimeout(() => {
-
                     bill.hidden = true;
                 }, 1900);
                 money.value = +money.value + +bill.dataset.money;
@@ -323,6 +322,8 @@
     const removeTarget = (e) => {
         e.target.remove()
     }
+
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
