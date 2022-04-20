@@ -28,16 +28,24 @@ if (submit) {
             submit.click();
         }
     }, 400);
-}
+} else {
+    let nextPage = true;
+    let links = document.links;
 
-let links = document.links;
-
-for (let i = 0; i < links.length; i++) {
-    if (links[i].href.indexOf("napli.ru") !== -1) {
-        console.log("Нашел строку " + links[i]);
-        let link = links[i];
-    setTimeout(()=>link.click(), getRandom(1500, 4000))
-        break;
+    for (let i = 0; i < links.length; i++) {
+        if (links[i].href.indexOf("napli.ru") !== -1) {
+            let link = links[i];
+            nextPage = false;
+            setTimeout(() => link.click(), getRandom(1500, 4000));
+            break;
+        }
+    }
+    if (nextPage) {
+        setTimeout(() => {
+            document.getElementById('pnnext').click();
+        }, getRandom(1500, 4000));
     }
 }
+
+
 
