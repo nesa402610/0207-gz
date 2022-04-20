@@ -9,19 +9,25 @@
 // @grant        none
 // ==/UserScript==
 const getRandom = (min, max) => {
-    return Math.floor(Math.random() * (max-min) + min)
-}
+    return Math.floor(Math.random() * (max - min) + min);
+};
 
 const keywords = ["10 самых популярных шрифтов от Google",
     "Отключение редакций и ревизий в WordPress",
     "Вывод произвольных типов записей и полей в WordPress"];
-let keyword = keywords[getRandom(0, keywords.length)]
+let keyword = keywords[getRandom(0, keywords.length)];
 const input = document.querySelector('input');
 const submit = document.getElementsByName('btnK')[1];
 if (submit) {
-    input.value = keyword;
-
-    submit.click();
+    let i = 0;
+    const timerID = setInterval(() => {
+        input.value += keyword[i];
+        i++;
+        if (i === keyword.length) {
+            clearInterval(timerID);
+            submit.click();
+        }
+    }, 400);
 }
 
 let links = document.links;
@@ -30,7 +36,7 @@ for (let i = 0; i < links.length; i++) {
     if (links[i].href.indexOf("napli.ru") !== -1) {
         console.log("Нашел строку " + links[i]);
         let link = links[i];
-        link.click();
+    setTimeout(()=>link.click(), getRandom(1500, 4000))
         break;
     }
 }
