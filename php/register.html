@@ -52,7 +52,8 @@
 <div class="container p-4">
     <h1 class="my-5 text-center">Регистрация на сайте</h1>
     <div class="col-md-5 mx-auto">
-        <form action="/php/registrationHanlder.php" method="post" class="bg-secondary p-4 rounded">
+        <form onsubmit="registration(this)" class="bg-secondary p-4 rounded">
+            <h5 class="text-center" id="info"></h5>
             <div class="input-group">
                 <div class="input-group-prepend">
                     <div class="input-group-text"><i class="fa-solid fa-lg fa-fw fa-user-astronaut"></i></div>
@@ -101,7 +102,13 @@
                     Даю согласие на обработку персональных данных
                 </label>
             </div>
-            <input type="submit" class="btn btn-success form-control" value="Зарегистрироваться">
+            <div class="row justify-content-between mx-0">
+                <input type="submit" class="col-6 btn btn-success form-control" value="Зарегистрироваться">
+                <a href="./login.html"
+                   class="col-5 justify-content-center align-items-center btn btn-primary opacity-50 ">
+                    Войти в аккаунт
+                </a>
+            </div>
         </form>
     </div>
 </div>
@@ -114,6 +121,20 @@
 
 </body>
 <script>
-
+    async function registration(form) {
+        event.preventDefault();
+        let response = await fetch('registrationHanlder.php', {
+            method: 'POST',
+            body: new FormData(form),
+        });
+        let result = await response.text();
+        if (result === 'ok') {
+            info.innerHTML = "Успешная регистрация";
+        } else if (result === 'exist') {
+            info.innerHTML = "Такой пользователь уже есть";
+        } else {
+            info.innerHTML = "Ошибка сервера";
+        }
+    }
 </script>
 </html>
