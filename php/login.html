@@ -76,6 +76,7 @@
         let result = await response.text();
         if (result === 'ok') {
             info.innerHTML = "Успешный вход";
+            location.href = 'dashboard.php'
 
         } else if (result === 'invalid') {
             info.innerHTML = "Пользователь не существует";
