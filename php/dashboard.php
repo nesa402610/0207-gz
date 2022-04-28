@@ -17,12 +17,12 @@ session_start()
 <div class="container text-white">
     <p>Имя: <span><?= $_SESSION['first_name'] ?></span>
         <span class="btn edit-btn btn-warning">Изменить</span>
-        <span hidden class="btn save btn-warning">Сохранить</span>
+        <span hidden data-item="first_name" class="btn save btn-warning">Сохранить</span>
         <span hidden class="btn cancel btn-danger">Отменить</span>
     </p>
     <p class="">Фамилия: <span><?= $_SESSION['last_name'] ?></span>
         <span class="btn edit-btn btn-warning">Изменить</span>
-        <span hidden class="btn save btn-warning">Сохранить</span>
+        <span hidden data-item="last_name" class="btn save btn-warning">Сохранить</span>
         <span hidden class="btn cancel btn-danger">Отменить</span>
     </p>
     <p class="">Email: <span><?= $_SESSION['email'] ?></span>
@@ -32,34 +32,42 @@ session_start()
 
 </div>
 <script>
-    let btns = document.querySelectorAll('.edit-btn');
-    let saveBtns = document.querySelectorAll('.save')
-    let cancelBtns = document.querySelectorAll('.cancel')
-    for (let i = 0; i < btns.length; i++) {
-        btns[i].addEventListener('click', () => {
-            let value = btns[i].previousElementSibling.innerText;
-            btns[i].previousElementSibling.innerHTML = `<input type="text" value="${value}"/>`;
-            saveBtns[i].hidden = false;
-            cancelBtns[i].hidden = false;
-            btns[i].hidden = true;
+    let edit_buttons = document.querySelectorAll(".edit-btn");
+    let save_buttons = document.querySelectorAll(".save");
+    let cancel_buttons = document.querySelectorAll(".cancel");
+    for (let i = 0; i < edit_buttons.length; i++) {
+        let value = edit_buttons[i].previousElementSibling.innerText;
+        edit_buttons[i].addEventListener("click", () => {
+            edit_buttons[i].previousElementSibling.innerHTML = `<input type="text" value = "${value}">`;
+            save_buttons[i].hidden = false;
+            cancel_buttons[i].hidden = false;
+            edit_buttons[i].hidden = true;
+        });
+        save_buttons[i].addEventListener("click", async () => {
+            value = edit_buttons[i].previousElementSibling.firstElementChild.value;
+            edit_buttons[i].previousElementSibling.innerText = value;
+            save_buttons[i].hidden = true;
+            cancel_buttons[i].hidden = true;
+            edit_buttons[i].hidden = false;
 
-            saveBtns[i].addEventListener('click', ()=>{
-                // value = btns[i].previousElementSibling.children[0].value
-                btns[i].previousElementSibling.innerHTML = btns[i].previousElementSibling.children[0].value;
-                saveBtns[i].hidden = true;
-                cancelBtns[i].hidden = true;
-                btns[i].hidden = false;
-            })
-
-            cancelBtns[i].addEventListener('click', ()=>{
-                btns[i].previousElementSibling.innerHTML = value;
-                saveBtns[i].hidden = true;
-                cancelBtns[i].hidden = true;
-                btns[i].hidden = false;
-
+            const data = new FormData()
+            data.append('value', value);
+            data.append('field', save_buttons[i].dataset.item)
+            let response = await fetch('updateFields.php', {
+                method: 'post',
+                body: data,
             })
         });
+
+        cancel_buttons[i].addEventListener("click", () => {
+            edit_buttons[i].previousElementSibling.innerText = value;
+            save_buttons[i].hidden = true;
+            cancel_buttons[i].hidden = true;
+            edit_buttons[i].hidden = false;
+        });
+
     }
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
