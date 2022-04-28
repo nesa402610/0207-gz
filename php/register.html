@@ -17,7 +17,9 @@
         }
 
         span {
-            align-self: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 40px;
             padding: .25rem;
 
@@ -83,16 +85,17 @@
                        placeholder="Пароль"
                        id="pass_form"
                        name="password"
+                       style="border-bottom-right-radius: .25rem; border-top-right-radius: .25rem"
                 >
                 <span onmousedown="pass_form.type = 'text';
                     this.nextElementSibling.hidden = false;
-                    this.hidden = true">&nbsp;
+                    this.hidden = true">
                     <i class="fa-solid curs_pointer fa-lg fa-eye"></i>
                 </span>
                 <span hidden
                       onmouseup="pass_form.type = 'password';
                       this.previousElementSibling.hidden = false;
-                      this.hidden = true ">&nbsp;
+                      this.hidden = true">
                     <i class="fa-solid curs_pointer fa-lg fa-eye-slash"></i>
                 </span>
             </div>
