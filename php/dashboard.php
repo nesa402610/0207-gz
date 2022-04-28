@@ -44,8 +44,8 @@ session_start()
             btns[i].hidden = true;
 
             saveBtns[i].addEventListener('click', ()=>{
-                value = btns[i].previousElementSibling.children[0].value
-                btns[i].previousElementSibling.innerHTML = value;
+                // value = btns[i].previousElementSibling.children[0].value
+                btns[i].previousElementSibling.innerHTML = btns[i].previousElementSibling.children[0].value;
                 saveBtns[i].hidden = true;
                 cancelBtns[i].hidden = true;
                 btns[i].hidden = false;
