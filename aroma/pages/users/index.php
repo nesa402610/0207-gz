@@ -1,3 +1,5 @@
+<?php session_start()?>
+
 <!doctype html>
 <html lang="ru">
 <head>
@@ -113,7 +115,14 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                    Страница с настройками
+                    <h2>Страница с настройками</h2>
+                    <p>Имя: <span><?= $_SESSION['name']?></span>
+                    <span  class="btn btn-primary">Изменить</span>
+                    </p>
+                    <p>Фамилия: <span><?= $_SESSION['lastname']?></span>
+                    <span  class="btn btn-primary">Изменить</span>
+                    </p>
+
                 </div>
             </div>
         </div>
