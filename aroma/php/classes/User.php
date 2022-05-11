@@ -57,11 +57,28 @@ class User {
             $_SESSION['lastname'] = $result['last_name'];
             $_SESSION['email'] = $result['email'];
             $_SESSION['id'] = $result['id'];
-            return json_encode(['result' => 'ok', 'data'=>$result]);
-
+            return json_encode(['result' => 'ok', 'data' => $result]);
+//return 'ok';
         } else {
             return json_encode(['result' => 'invalid']);
         }
+
+    }
+
+    public static function getUser($userID) {
+        global $mysqli;
+        $result = $mysqli->query("SELECT * FROM `usersGZ` WHERE `id` = '$userID'");
+        $result = $result->fetch_assoc();
+        return json_encode($result);
+    }
+
+    public static function getUsers() {
+        global $mysqli;
+        $result = $mysqli->query("SELECT `id`, `first_name`,`last_name`,`email` FROM `usersGZ` WHERE 1");
+        while ($row = $result->fetch_assoc()) {
+            $users[] = $row;
+        }
+        return json_encode($users);
 
     }
 

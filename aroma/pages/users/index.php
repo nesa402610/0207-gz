@@ -1,4 +1,4 @@
-<?php session_start()?>
+<?php session_start() ?>
 
 <!doctype html>
 <html lang="ru">
@@ -48,6 +48,7 @@
                             <img src="../img/blog/author.png" alt="">
                         </div>
                         <div class="col-sm-9">
+                            <h1 id="userName"></h1>
                             <h2>О себе</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque iste iusto laudantium
                                minus nesciunt non numquam odit praesentium quaerat quas quia, sequi voluptatum! Aliquid
@@ -107,7 +108,7 @@
                     </div>
                     <div class="row">
                         <div class="col-8">
-                                <textarea name="" id="" cols="40" rows="1"></textarea>
+                            <textarea name="" id="" cols="40" rows="1"></textarea>
                         </div>
                         <div class="col-4">
                             <button class="btn btn-warning">Отправить</button>
@@ -115,74 +116,89 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-                    <h2>Страница с настройками</h2>
-                    <p>Имя: <span><?= $_SESSION['name']?></span>
-                    <span  class="btn btn-primary">Изменить</span>
-                    </p>
-                    <p>Фамилия: <span><?= $_SESSION['lastname']?></span>
-                    <span  class="btn btn-primary">Изменить</span>
-                    </p>
-
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Фамилия</th>
+                            <th scope="col">Email</th>
+                        </tr>
+                        </thead>
+                        <tbody id="userListTable">
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
-<script>
-    let path = location.pathname.split('/')[3];
-    // $(window).on('popstate', function (e) {
-    //     let pathPop = location.pathname.split('/')[3];
-    //     if (pathPop == 'profile') {
-    //         $('#v-pills-profile-tab').tab('show');
-    //     } else if (pathPop == 'messages') {
-    //         $('#v-pills-messages ').tab('show');
-    //
-    //     } else if (pathPop == 'settings') {
-    //         $('#v-pills-settings ').tab('show');
-    //
-    //     } else {
-    //         // location.href = '/aroma'
-    //     }
-    // });
-    addEventListener('popstate', event => {
-        let pathPop = location.pathname.split("/")[3];
-        if (pathPop == "profile") {
-            $('#profileTab').tab('show');
-            console.log(pathPop);
-        } else if (pathPop == "messages") {
-            $('#messagesTab').tab('show');
-            console.log(pathPop);
-        } else if (pathPop == "settings") {
-            $('#settingsTab').tab('show');
-            console.log(pathPop);
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"></script>
+    <script>
+        let path = location.pathname.split('/')[3];
+        let user;
+
+        async function getUser() {
+            let response = await fetch('/aroma/getUser');
+            return await response.json();
         }
-    });
-    if (path == 'profile') {
-        $('#profileTab').tab('show');
-    } else if (path == 'messages') {
-        $('#messagesTab').tab('show');
 
-    } else if (path == 'settings') {
-        $('#settingsTab').tab('show');
+        async function getUsers() {
+            let response = await fetch('/aroma/getUsers');
+            return await response.json();
+        }
 
-    } else {
-        // location.href = '/aroma'
-    }
-    document.getElementById(path + "Tab").classList.add('active');
 
-    let navLinks = document.querySelectorAll('.nav-link');
-    for (let i = 0; i < navLinks.length; i++) {
-        navLinks[i].addEventListener('click', () => {
-            let page = navLinks[i].getAttribute('aria-controls').split("v-pills-")[1];
-            history.pushState('', '', page);
+        addEventListener('popstate', event => {
+            let pathPop = location.pathname.split("/")[3];
+            if (pathPop == "profile") {
+                $('#profileTab').tab('show');
+                console.log(pathPop);
+            } else if (pathPop == "messages") {
+                $('#messagesTab').tab('show');
+                console.log(pathPop);
+            } else if (pathPop == "settings") {
+                $('#settingsTab').tab('show');
+                console.log(pathPop);
+            }
         });
-    }
-</script>
+        if (path == 'profile') {
+            $('#profileTab').tab('show');
+            getUser().then(r => {
+                userName.innerText = `${r.first_name} ${r.last_name}`;
+            });
+        } else if (path == 'messages') {
+            $('#messagesTab').tab('show');
+
+        } else if (path == 'settings') {
+            $('#settingsTab').tab('show');
+            getUsers().then(users => {
+                for (let i = 0; i < users.length; i++) {
+                    userListTable.innerHTML += `<tr>
+                            <th scope="row">${users[i].id}</th>
+                            <td>${users[i].first_name}</td>
+                            <td>${users[i].last_name}</td>
+                            <td>${users[i].email}</td>
+                        </tr>`;
+                }
+            });
+
+        } else {
+            // location.href = '/aroma'
+        }
+        document.getElementById(path + "Tab").classList.add('active');
+
+        let navLinks = document.querySelectorAll('.nav-link');
+        for (let i = 0; i < navLinks.length; i++) {
+            navLinks[i].addEventListener('click', () => {
+                let page = navLinks[i].getAttribute('aria-controls').split("v-pills-")[1];
+                history.pushState('', '', page);
+            });
+        }
+    </script>
 </body>
 </html>

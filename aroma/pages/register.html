@@ -80,6 +80,7 @@
                                    placeholder="Email Address"
                                    onfocus="this.placeholder = ''"
                                    onblur="this.placeholder = 'Email Address'">
+                            <p id="info" class="d-none"></p>
                         </div>
                         <div class="col-md-12 form-group">
                             <input type="password"
@@ -91,7 +92,9 @@
                                    onblur="this.placeholder = 'Password'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="button button-register w-100">Зарегистрироваться</button>
+                            <button type="submit" value="submit" class="button button-register w-100">
+                                Зарегистрироваться
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -101,6 +104,22 @@
 </section>
 <!--================End Login Box Area =================-->
 
+<div class="modal fade mt-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Вы успешно зарегистрированы</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Вы будете перенаправлены на форму авторизации через 5 секунд
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     async function sendForm(form) {
         event.preventDefault();
@@ -108,8 +127,20 @@
         const response = await fetch('/aroma/addUser', {
             method: 'POST',
             body: data
-        })
-        console.log(await response.json());
+        });
+        const res = await response.json();
+        if (res.result === 'success') {
+            $('#exampleModal').modal('show');
+            setTimeout(() => {
+                location.href = '/aroma/auth';
+            }, 5000);
+        } else if (res.result === 'exist') {
+            info.innerHTML = 'Пользователь уже существует';
+            info.classList.remove('d-none');
+            info.classList.add('text-danger', 'text-left');
+        } else {
+            alert('Что-то пошло не так. Попробуйте еще раз');
+        }
     }
 </script>
 <script src="vendors/jquery/jquery-3.2.1.min.js"></script>
