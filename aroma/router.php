@@ -17,10 +17,12 @@ if ($link == 'auth') {
     require_once('pages/users/index.php');
 } else if ($link == 'addUser') {
     echo User::addUser($_POST["name"], $_POST["lastname"], $_POST['email'], $_POST['pass']);
-//    var_dump($mysqli);
 } else if ($link == 'userLogin') {
     echo User::authUser($_POST['email'], $_POST['pass']);
-//    var_dump($mysqli);
+} else if ($link == 'getUser') {
+    echo User::getUser($_SESSION['id']);
+} else if ($link == 'getUsers') {
+    echo User::getUsers();
 } else {
     $content = file_get_contents("pages/index.php");
 }
