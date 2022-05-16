@@ -28,6 +28,7 @@ function App(props) {
                 <div className="col-sm-9">
                     <Routes>
                         <Route path={'/profile'} element={<Profile function={props.functions.key_getUser}/>} />
+                        <Route path={'/profile/:id'} element={<Profile function={props.functions.key_getUser}/>} />
                         <Route path={'/messages'} element={<Messages/>} />
                         <Route path={'/settings'} element={<Settings/>} />
                         <Route path={'/friends'} element={<Friends function={props.functions.key_getUsers}/>} />

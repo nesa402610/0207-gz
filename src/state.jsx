@@ -1,4 +1,5 @@
 const user = {
+    id: '1',
     name: 'Ivan',
     lastname: 'Ivanov',
     email: 'Bana@asd.sja',
@@ -7,7 +8,7 @@ const user = {
 };
 
 const users = {
-    0: {name: "Ипатий", lastname: "Ельцин", id: 1},
+    0: {name: "Ипатий", lastname: "Ельцин", id: 2},
     1: {name: "Валерия", lastname: "Ялбачевa", id: 12},
     2: {name: "Ксения", lastname: "Тетеринa", id: 15},
     3: {name: "Нина", lastname: "Ельцинa", id: 11},
@@ -20,9 +21,12 @@ const users = {
     10: {name: "Владислав", lastname: "Яблочков", id: 12452},
 };
 
-export const getUser = () => {
+export function getUser(userId) {
+    for(let i = 0; i < Object.keys(user).length; i++) {
+        if (users[i].id == userId) return users[i];
+    }
     return user;
-};
+}
 
 export const getUsers = () => {
     return users;

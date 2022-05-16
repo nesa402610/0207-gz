@@ -1,7 +1,10 @@
 import React from 'react';
+import {useParams} from "react-router-dom";
 
 const Profile = (props) => {
-    const user = props.function
+    let param = useParams()
+    const user = props.function(param.id);
+
 
     return (
         <div className={'row'}>
@@ -9,7 +12,7 @@ const Profile = (props) => {
                 <img src={user.avatar} alt=""/>
             </div>
             <div className="col-sm-8">
-                <h2>{user.name} {user.lastname}</h2>
+                <h2>ID: {user.id} {user.name} {user.lastname}</h2>
                 <h3>Обо мне</h3>
                 <p>
                     {user.about}

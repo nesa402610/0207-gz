@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('senpai'));
 root.render(
     <BrowserRouter>
         <React.StrictMode>
-            <App functions={{key_getUser: getUser(), key_getUsers: getUsers()}}/>
+            <App functions={{key_getUser: getUser, key_getUsers: getUsers}}/>
         </React.StrictMode>
     </BrowserRouter>
 );
