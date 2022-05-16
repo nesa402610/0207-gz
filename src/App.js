@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {NavLink, Routes, Route} from "react-router-dom";
 import Profile from "./components/profile";
@@ -6,7 +5,7 @@ import Messages from "./components/messages";
 import Settings from "./components/settings";
 import Friends from "./components/friends";
 
-function App() {
+function App(props) {
     return (
         <div className="container-fluid">
             <div className="row">
@@ -28,10 +27,10 @@ function App() {
                 </div>
                 <div className="col-sm-9">
                     <Routes>
-                        <Route path={'/profile'} element={<Profile/>} />
+                        <Route path={'/profile'} element={<Profile function={props.functions.key_getUser}/>} />
                         <Route path={'/messages'} element={<Messages/>} />
                         <Route path={'/settings'} element={<Settings/>} />
-                        <Route path={'/friends'} element={<Friends/>} />
+                        <Route path={'/friends'} element={<Friends function={props.functions.key_getUsers}/>} />
                     </Routes>
                 </div>
             </div>
