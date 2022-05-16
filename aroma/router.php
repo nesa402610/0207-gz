@@ -15,6 +15,8 @@ if ($link == 'auth') {
     $content = file_get_contents("pages/blog.html");
 } else if ($link == 'users') {
     require_once('pages/users/index.php');
+} else if ($link == 'users/lk') {
+    require_once('pages/users/lk/index.html');
 } else if ($link == 'addUser') {
     echo User::addUser($_POST["name"], $_POST["lastname"], $_POST['email'], $_POST['pass']);
 } else if ($link == 'userLogin') {
