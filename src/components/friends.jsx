@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {NavLink} from "react-router-dom";
 
 const TableRow = (props) => {
@@ -13,15 +13,27 @@ const TableRow = (props) => {
     );
 };
 const Friends = (props) => {
-    const users = props.function();
-    let usersCount = Object.keys(users).length;
-    let userRow = [];
+    let [userRow, setUserRow] = useState([]);
+    useEffect(() => {
+        props.function().then(users => {
+            let usersCount = Object.keys(users).length;
+            let userRow = []
 
-    for (let i = 0; i < usersCount; i++) {
-        userRow.push(<TableRow index={i} name={users[i].name} id={users[i].id} lastname={users[i].lastname} key={i}/>);
-    }
+            for (let i = 0; i < usersCount; i++) {
+                userRow.push(<TableRow
+                    index={i}
+                    key={i}
+                    name={users[i].name}
+                    lastname={users[i].lastname}
+                    id={users[i].id}
+                />)
+            }
+            setUserRow(userRow)
+        });
+    }, [props.function]);
+
     return (
-        <table className="table table-striped">
+        <table className="table w-full table-striped">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -29,11 +41,12 @@ const Friends = (props) => {
                 <th scope="col">Фамилия и имя</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody className={'text-center'}>
             {userRow}
             </tbody>
         </table>
     );
+
 };
 
 export default Friends;

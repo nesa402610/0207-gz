@@ -7,11 +7,11 @@ const Profile = (props) => {
 
 
     return (
-        <div className={'row'}>
-            <div className="col-sm-4">
+        <div className={'flex flex-row'}>
+            <div className="w-auto">
                 <img src={user.avatar} alt=""/>
             </div>
-            <div className="col-sm-8">
+            <div className="w-8/12">
                 <h2>ID: {user.id} {user.name} {user.lastname}</h2>
                 <h3>Обо мне</h3>
                 <p>
